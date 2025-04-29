@@ -1,8 +1,7 @@
 name: Build
 
 on:
-  push:
-    tags: ['v*']
+   workflow_dispatch:
 
 jobs:
   build:
@@ -42,23 +41,3 @@ jobs:
             // todo: add changelog
           draft: true
           prerelease: false
-      - name: Upload Forge Jar
-        id: upload_forge_jar
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Forge/build/libs/primalwinter-forge-1.20-${{ steps.get_version.outputs.result }}.jar
-          asset_name: primalwinter-forge-1.20-${{ steps.get_version.outputs.result }}.jar
-          asset_content_type: application/java-archive
-      - name: Upload Fabric Jar
-        id: upload_fabric_jar
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Fabric/build/libs/primalwinter-fabric-1.20-${{ steps.get_version.outputs.result }}.jar
-          asset_name: primalwinter-fabric-1.20-${{ steps.get_version.outputs.result }}.jar
-          asset_content_type: application/java-archive
